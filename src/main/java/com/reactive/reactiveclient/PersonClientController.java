@@ -30,14 +30,16 @@ public class PersonClientController {
                         retrieveFlux(Person.class);
     }
 
-    @GetMapping("/colleague")
+    @GetMapping("/colleague/{name}")
     public Publisher<Person> collegues(@PathVariable("name") String name ){
         return (Publisher<Person>)
                 rsocketRequester.
                         route("rsock-colleague").
-                        data(new Person(null,name)).
-                        retrieveFlux(Person.class);
+                        data(name).
+                        retrieveMono(Person.class);
     }
+
+
 }
 
 @Data
